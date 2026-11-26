@@ -1,0 +1,21 @@
+name: Build
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: BeestoXd/UltimateDonutSMP-V2
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+      - run: mvn -B clean package -DskipTests
+      - uses: actions/upload-artifact@v4
+        with:
+          name: UltimateDonutSmp2
+          path: |
+            target/*.jar
+            !target/original-*.jar
